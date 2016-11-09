@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block header %}{{ block.super }}User Page{% endblock %}
+
+{% block content %}
+<br><br><br>
+Username: {{ user.username }} <br>
+
+Email: {{ user.email }} <br>
+
+First Name: Test  <br>
+Last Name: User  <br>
+Rank: 1 <br>
+Points: 10
+<p style="font-size:1.4em"><a href=/>{% trans "Back" %}</a></p>
+{% endblock %}
