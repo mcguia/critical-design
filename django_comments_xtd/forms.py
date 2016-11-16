@@ -12,6 +12,7 @@ except ImportError:
 
 from django_comments_xtd.conf import settings
 from django_comments_xtd.models import TmpXtdComment
+from simple_threads.models import User
 
 
 class XtdCommentForm(CommentForm):
@@ -27,15 +28,16 @@ class XtdCommentForm(CommentForm):
             initial.update({"reply_to": comment.pk})
             kwargs["initial"] = initial
         super(CommentForm, self).__init__(*args, **kwargs)
+        
         self.fields['name'] = forms.CharField(
+            required=False,
             widget=forms.TextInput(attrs={'value': _('Anonymous')}))
         self.fields['email'] = forms.EmailField(
-            label=_("Email"), help_text=_("Required for comment verification"),
-            widget=forms.TextInput(attrs={'value': _('admin@example.com')})
-            )
-        self.fields['url'] = forms.URLField(
             required=False,
-            widget=forms.TextInput(attrs={'placeholder': _('website')}))
+            label=_("Email"), help_text=_("Required for comment verification"),
+            widget=forms.TextInput()
+            )
+        
         self.fields['comment'] = forms.CharField(
             widget=forms.Textarea(attrs={'placeholder': _('comment')}),
             max_length=settings.COMMENT_MAX_LENGTH)

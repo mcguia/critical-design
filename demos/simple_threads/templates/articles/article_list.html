@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n comments %}
 
-{% block header %}{{ block.super }}{% trans "Article List" %}{% endblock %}
+{% block header %}{{ block.super }}{% trans "Project List" %}{% endblock %}
 
 {% block content %}
 {% if object_list %}
@@ -19,6 +19,6 @@
 </UL>
 {% endif %}
 <p style="padding: 5px 15px; background:#ddd">
-  <a href="{% url 'homepage' %}">{% trans "Home" %}</a>
+  <a href="{% url 'homepage' %}">{% trans "Home" %}</a>   <a href="/logout">Log out</a>
 </p>
 {% endblock %}

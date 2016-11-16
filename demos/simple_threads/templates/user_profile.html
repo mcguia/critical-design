@@ -9,9 +9,9 @@ Username: {{ user.username }} <br>
 
 Email: {{ user.email }} <br>
 
-First Name: Test  <br>
-Last Name: User  <br>
-Rank: 1 <br>
-Points: 10
+First Name: {{user.first_name}}  <br>
+Last Name: {{user.last_name}}  <br>
+Rank: {{user.employee.rank}} <br>
+Points: {{user.employee.points}}
 <p style="font-size:1.4em"><a href=/>{% trans "Back" %}</a></p>
 {% endblock %}

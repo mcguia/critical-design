@@ -100,6 +100,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
 ROOT_URLCONF = 'urls'
 
 try:
@@ -117,6 +120,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     django_comments,
+    'simple_threads',
 
     'simple_threads.articles',
     'django_comments_xtd',
@@ -141,7 +145,7 @@ else:
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 COMMENTS_APP = "django_comments_xtd"
-COMMENTS_XTD_CONFIRM_EMAIL = True
+COMMENTS_XTD_CONFIRM_EMAIL = False
 COMMENTS_XTD_SALT = b"es-war-einmal-una-bella-princesa-in-a-beautiful-castle"
-COMMENTS_XTD_MAX_THREAD_LEVEL = 2
+COMMENTS_XTD_MAX_THREAD_LEVEL = 10
 
