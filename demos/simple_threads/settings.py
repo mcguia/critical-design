@@ -21,6 +21,9 @@ DATABASES = {
         'PASSWORD': '', 
         'HOST':     '', 
         'PORT':     '',
+        'OPTIONS': {
+        'timeout': 10,
+        }
     }
 }
 
@@ -100,7 +103,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/articles'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 ROOT_URLCONF = 'urls'
@@ -121,9 +124,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     django_comments,
     'simple_threads',
-
     'simple_threads.articles',
     'django_comments_xtd',
+    'django.contrib.staticfiles',
 )
 
 from django import VERSION

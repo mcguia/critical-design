@@ -8,5 +8,6 @@ class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     rank = models.IntegerField(default=0, null=True)
     points = models.IntegerField(default=0, null=True)
+    comments = models.IntegerField(default=0, null=False)
 
 

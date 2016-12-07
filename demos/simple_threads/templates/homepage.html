@@ -1,14 +1,23 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
 
 {% block header %}{{ block.super }}Homepage{% endblock %}
 
 {% block content %}
-<p>{% trans "This demo site using django-comments-xtd" %}:
 
-</p>
-<!--<p style="font-size:1.4em"><a href="/profile/{{auth_user.id}}/">{% trans "User Profile" %}</a></p>-->
-<p style="font-size:1.4em"><a href="/profile">{% trans "User Profile" %}</a></p>
-<p style="font-size:1.4em"><a href="{% url 'articles-index' %}">{% trans "Project list" %}</a></p>
-<p style="padding: 5px 15px; background:#ddd; font-weight:bold"><a href="/logout">Log out</a></p>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <img src="{% static 'img/poster.png' %}" width="70%" height="70%">
+
+                </ul>
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
 {% endblock %}

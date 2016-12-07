@@ -3,22 +3,61 @@
 
 {% block header %}{{ block.super }}{% trans "Project List" %}{% endblock %}
 
+
 {% block content %}
 {% if object_list %}
-<UL>
-  {% for article in object_list %}
-  {% get_comment_count for article as comment_count %}
-  <li>
-    <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
-    <span style="font-size:0.8em">{{ article.publish|date:"d-F-Y" }}</span>
-    {% if comment_count %}
-    <span style="font-size:0.8em">- {{ comment_count }} comment{{ comment_count|pluralize }}</span>
-    {% endif %}
-  </li>
-{% endfor %}
-</UL>
-{% endif %}
-<p style="padding: 5px 15px; background:#ddd">
-  <a href="{% url 'homepage' %}">{% trans "Home" %}</a>   <a href="/logout">Log out</a>
-</p>
+{% for article in object_list %}
+<div class="container">
+<div class="row">
+    <div class="col-md-1"></div>
+  <div class="col-md-6">
+    <div id="postlist">
+      <div class="panel">
+                <div class="panel-heading">
+                    <div class="text-center">
+                        <div class="row">
+                            <div class="col-sm-9">
+                              {% get_comment_count for article as comment_count %}
+                                <h3 class="pull-left"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+                            </div>
+                            <div class="col-sm-3">
+                                <h4 class="pull-right">
+                                <small><em>{{ article.publish|date:"d-F-Y" }}</em></small>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            <div class="panel-body">
+                {{article.body|truncatechars:300}} 
+                <a href="{{ article.get_absolute_url }}">Read more</a>
+            </div>
+            
+            <div class="panel-footer">
+                <span class="label label-default">{{ comment_count }} comment{{ comment_count|pluralize }}</span>
+            </div>
+        </div>
+    </div>
+  </div> 
+</div>
+</div>
+        {% endfor %}
+        {% endif %}
+<div class="container">
+<div class="row">
+          <div class="col-md-6">
+            <div class="text-center"><a href="#" id="loadmore" class="btn btn-primary">Add New Project</a></div>
+            </div>
+            </div>
+            </div>
+</div>
+  <div class="col-md-1"></div>
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-1">
+  </div>
+
+
+
 {% endblock %}

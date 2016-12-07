@@ -1,17 +1,64 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
+
+<head>
+<link rel="stylesheet" href="{% static 'user_profile.css' %}">
+</head>
 
 {% block header %}{{ block.super }}User Page{% endblock %}
 
 {% block content %}
 <br><br><br>
-Username: {{ user.username }} <br>
 
-Email: {{ user.email }} <br>
 
-First Name: {{user.first_name}}  <br>
-Last Name: {{user.last_name}}  <br>
-Rank: {{user.employee.rank}} <br>
-Points: {{user.employee.points}}
-<p style="font-size:1.4em"><a href=/>{% trans "Back" %}</a></p>
-{% endblock %}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="well well-sm">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4 text-center">
+                        <img src="{% static 'img/default-user-icon.png' %}" alt="" class="img-rounded img-responsive" />
+                        <h3><a href="/profile/comments/" role="button" class="btn btn-info">View Comments</a></h3>
+                    </div>
+                    <div class="col-sm-6 col-md-8">
+                        <h2>
+                            {{user.first_name}}  {{user.last_name}} </h2>
+                        <small><cite title="San Francisco, USA">Troy, NY <i class="glyphicon glyphicon-map-marker">
+                        </i></cite></small>
+
+
+                        <p>
+                            <i class="glyphicon glyphicon-envelope"></i> {{user.email}}
+                            </p>
+                            <hr style="width: 100%; height: 1px; background-color:#BBBBBB;" />
+
+                        <div class="col-xs-12 divider text-center">
+                		<div class="col-xs-12 col-sm-4 emphasis">
+
+                            <h3><strong> {{user.employee.rank}} </strong></h3>
+                            <p><small>Rank</small></p>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 emphasis">
+
+                           <h3><strong> {{user.employee.comments}} </strong></h3>
+							<p><small>Comment{{ comments|pluralize }}</small></p>
+							</div>
+                            <div class="col-xs-12 col-sm-4 emphasis">
+
+                           <h3><strong> {{user.employee.points}} </strong></h3>
+							<p><small>Points</small></p>
+							</div>
+                        </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

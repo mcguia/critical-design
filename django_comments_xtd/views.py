@@ -27,7 +27,7 @@ from django_comments_xtd.models import (TmpXtdComment,
                                         max_thread_level_for_content_type,
                                         LIKEDIT_FLAG, DISLIKEDIT_FLAG)
 from django_comments_xtd.utils import send_mail
-
+from simple_threads.models import Employee
 
 get_model = None
 if django.VERSION[:2] <= (1, 8):
@@ -107,6 +107,7 @@ def on_comment_was_posted(sender, comment, request, **kwargs):
     In both cases will post the comment. Otherwise will send a confirmation
     email to the person who posted the comment.
     """
+
     if settings.COMMENTS_APP != "django_comments_xtd":
         return False
     if (
@@ -129,6 +130,30 @@ def on_comment_was_posted(sender, comment, request, **kwargs):
         key = signed.dumps(comment, compress=True,
                            extra_key=settings.COMMENTS_XTD_SALT)
         send_email_confirmation_request(comment, target, key)
+
+
+
+    parent = comment.parent_id
+    if parent != 0:
+        comment_p = XtdComment.objects.get(id=parent)
+        parent_id = comment_p.user_id
+        emp_p = Employee.objects.get(user_id=parent_id)
+        emp = Employee.objects.get(user_id=comment.user.id)
+
+        if emp_p.rank < emp.rank:
+            emp.points += 10
+
+        elif emp_p.rank > emp.rank:
+            emp.points -= 10
+
+        emp.comments += 1
+        emp.save()
+    else:
+        emp = Employee.objects.get(user_id=comment.user.id)
+        emp.comments += 1
+        emp.save()
+
+
 
 comment_was_posted.connect(on_comment_was_posted, sender=TmpXtdComment)
 
@@ -188,6 +213,8 @@ def confirm(request, key,
             return render(request, template_discarded, {'comment': tmp_comment})
 
     comment = _create_comment(tmp_comment)
+
+
     if comment.is_public is False:
         return render(request, get_moderated_tmpl(comment),
                       {'comment': comment})

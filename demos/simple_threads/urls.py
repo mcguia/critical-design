@@ -23,9 +23,10 @@ admin.autodiscover()
 pattern_list = [
     url(r'^$', views.homepage, name='homepage'),
 	# url(r'^profile/^(?P<profile_id>[0-9]+)/$', views.profile, name='profile'),
+    url(r'^profile/comments/', views.user_comments, name='user-comments'),
     url(r'^profile/', views.profile, name='profile'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^articles/', include('simple_threads.articles.urls')),
+    url(r'^articles/', include('simple_threads.articles.urls'), name='articles'),
     url(r'^comments/', include('django_comments_xtd.urls')),
 
     url(r'^feeds/comments/$', LatestCommentFeed(), name='comments-feed'),    
@@ -41,3 +42,5 @@ if django.VERSION[:2] < (1, 8):
     urlpatterns = patterns('views', *pattern_list)
 else:
     urlpatterns = pattern_list
+
+

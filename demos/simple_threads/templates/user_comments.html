@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n comments_xtd %}
+
+
+{% block content %}
+<dl id="comments">
+
+  {% for comment in comments %}
+  <div style="margin-left:100px">
+
+<div class="container">
+<div class="row">
+<div class="col-sm-1">
+<div class="thumbnail">
+<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+</div><!-- /thumbnail -->
+</div><!-- /col-sm-1 -->
+
+<div class="col-sm-5">
+<div class="panel panel-default">
+<div class="panel-heading">
+<span class="text-muted">{{comment.submit_date}}</span> <a class="pull-right" href="{{ comment.get_absolute_url }}">{% trans "View Comment Thread" %}</a>
+</div>
+
+<div class="panel-body">
+      <p>{{ comment.comment|render_markup_comment }}</p>
+</div><!-- /panel-body -->
+</div><!-- /panel panel-default -->
+</div><!-- /col-sm-5 -->
+</div>
+</div>
+</div>
+  {% endfor %}
+</dl>
+{% endblock %}
